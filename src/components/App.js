@@ -67,7 +67,7 @@ function App() {
   }, []);
 
   return (
-    <div className="page">
+    <>
       <Header/>
       <Main onEditAvatar={handleEditAvatarClick}
             onEditProfile={handleEditProfileClick}
@@ -175,10 +175,7 @@ function App() {
         isOpen={selectedCard}
         onClose={closeAllPopups}
       />
-
-
-
-    </div>
+    </>
   );
 }
 
