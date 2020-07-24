@@ -11,7 +11,7 @@ function PopupWithImage(props) {
     <div className={`popup popup__closed popup__zoom-card ${props.isOpen  ? "popup_opened" : ""}`}>
       <div className="popup__zoom">
         <img
-          src={`${card.link}`}
+          //src={`${card.link}`}
           alt={card.name}
           className="popup__image"/>
         <ButtonClose closeHandler={props.onClose}/>
