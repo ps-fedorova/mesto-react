@@ -1,0 +1,8 @@
+@import url(./_solid/card__button-like_solid.css);
+.card__button-like {
+
+    background-image: url(../../../images/like-contour.svg);
+    width: 21px;
+    height: 19px;
+    padding: 0;
+}
