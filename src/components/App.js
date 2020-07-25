@@ -12,7 +12,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState('');
+  const [selectedCard, setSelectedCard] = React.useState(undefined);
 
   /*
    function handleEditAvatarClick() {
@@ -50,7 +50,7 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddCardPopupOpen(false);
     setIsConfirmPopupOpen(false);
-    setSelectedCard('');
+    setSelectedCard(undefined);
   }
 
   React.useEffect(() => {
@@ -175,8 +175,6 @@ function App() {
        // isOpen={selectedCard}
         onClose={closeAllPopups}
       />
-
-
 
     </>
   );
