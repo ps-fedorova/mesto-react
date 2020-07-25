@@ -172,9 +172,12 @@ function App() {
 
       <PopupWithImage
         card={selectedCard}
-        isOpen={selectedCard}
+       // isOpen={selectedCard}
         onClose={closeAllPopups}
       />
+
+
+
     </>
   );
 }

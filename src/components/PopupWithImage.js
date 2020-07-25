@@ -6,10 +6,10 @@ import ButtonClose from "./ButtonClose";
 function PopupWithImage(props) {
 
   const card = props.card;
-  if(!card) return null;
+  //if(!card) return null;
 
   return (
-    <div className={`popup popup__closed popup__zoom-card ${props.isOpen  ? "popup_opened" : ""}`}>
+    <div className={`popup popup__closed popup__zoom-card ${card  ? "popup_opened" : ""}`}>
       <div className="popup__zoom">
         <img
           src={`${card.link}`}
