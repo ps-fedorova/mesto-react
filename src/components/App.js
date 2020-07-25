@@ -12,7 +12,14 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(undefined);
+  //const [selectedCard, setSelectedCard] = React.useState(undefined);
+
+
+  const [dataImage, setDataImage] = React.useState({
+    link: '',
+    name: ''
+  });
+  const [selectedCard, setSelectedCard] = React.useState(false);
 
   /*
    function handleEditAvatarClick() {
@@ -41,16 +48,22 @@ function App() {
     setIsConfirmPopupOpen(true);
   }
 
-  function handleCardClick(card) {
-    setSelectedCard(card);
+
+  function handleCardClick(props) {
+    setSelectedCard(true);
+    setDataImage({link: props.link, name: props.name});
   }
+
+  // function handleCardClick(card) {
+  //   setSelectedCard(card);
+  // }
 
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddCardPopupOpen(false);
     setIsConfirmPopupOpen(false);
-    setSelectedCard(undefined);
+    setSelectedCard(false);
   }
 
   React.useEffect(() => {
@@ -170,11 +183,16 @@ function App() {
       >
       </PopupWithForm>
 
+      {/*<PopupWithImage*/}
+      {/*  card={selectedCard}*/}
+      {/* // isOpen={selectedCard}*/}
+      {/*  onClose={closeAllPopups}*/}
+      {/*/>*/}
+
       <PopupWithImage
-        card={selectedCard}
-       // isOpen={selectedCard}
+        isOpen={selectedCard}
         onClose={closeAllPopups}
-      />
+        image={dataImage}/>
 
     </>
   );

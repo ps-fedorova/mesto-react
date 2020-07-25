@@ -81,6 +81,7 @@ function Main(props) {
             userId={userId}
             onCardClick={props.onCardClick}
             onDeleteCardClick={props.onDeleteCardClick}
+
           />
         })}
       </ul>

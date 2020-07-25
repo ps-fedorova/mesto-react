@@ -5,24 +5,17 @@ import ButtonClose from "./ButtonClose";
 
 function PopupWithImage(props) {
 
-  const {
-    card,
-    card: {link, name} = {link: '', name: ''},
-    onClose,
-  } = props;
-  //if(!card) return null;
-
   return (
-    <div className={`popup popup__closed popup__zoom-card ${card ? "popup_opened" : ""}`}>
+    <div className={`popup popup__closed popup__zoom-card ${props.isOpen && "popup_opened"}`}>
       <div className="popup__zoom">
         <img
-          src={`${link}`}
-          alt={name}
+          src={props.image.link}
+          alt={props.image.name}
           className="popup__image"/>
-        <ButtonClose closeHandler={onClose}/>
-        <h2 className="popup__card-name">{name}</h2>
+        <ButtonClose closeHandler={props.onClose}/>
+        <h2 className="popup__card-name">{props.image.name}</h2>
       </div>
-      <div className="popup__overlay" onClick={onClose}/>
+      <div className="popup__overlay" onClick={props.onClose}/>
     </div>
   )
 }
