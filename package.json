@@ -1,6 +1,8 @@
 {
   "name": "mesto-react",
   "version": "0.1.0",
+  "description": "Learning project",
+  "author": "Polina Fedorova",
   "private": true,
   "homepage": "https://ps-fedorova.github.io/mesto-react",
   "dependencies": {
