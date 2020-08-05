@@ -1,8 +1,6 @@
 import React from "react";
 import ButtonClose from "./ButtonClose";
 
-/*Попап с картинкой*/
-
 function PopupWithImage(props) {
 
   return (

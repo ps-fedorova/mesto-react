@@ -87,23 +87,15 @@ class API {
     });
   }
 
-  putLike(cardId) {
-    return this._fetch('/cards/likes/' + cardId, {
-      method: 'PUT',
+  changeLikeCardStatus(cardID, like) {
+    return this._fetch('/cards/likes/' + cardID, {
+      method: like ? 'PUT' : 'DELETE',
       headers: {
         authorization: this._authorization
       }
     });
   }
 
-  deleteLike(cardId) {
-    return this._fetch('/cards/likes/' + cardId, {
-      method: 'DELETE',
-      headers: {
-        authorization: this._authorization
-      }
-    });
-  }
 }
 
 const api = new API({baseUrl, authorization});
