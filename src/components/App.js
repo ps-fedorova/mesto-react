@@ -116,14 +116,21 @@ function App() {
     closeAllPopups();
   }
 
-  const handleUpdateUser = ({ name, about }) => {
-    return api.editUserInfo({ name, about })
+  function handleUpdateUser({name, about}) {
+    return api.editUserInfo({name, about})
       .then(user => {
         setCurrentUser(user);
         closeAllPopups();
       });
-  };
+  }
 
+  function handleUpdateAvatar({avatar}) {
+    return api.editUserAvatar({avatar})
+      .then(user => {
+        setCurrentUser(user);
+        closeAllPopups();
+      });
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -142,6 +149,7 @@ function App() {
       <PopupWithEditAvatar
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
+        onUpdateAvatar={handleUpdateAvatar}
       />
 
       <PopupWithEditProfile
