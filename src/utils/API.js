@@ -28,21 +28,18 @@ class API {
     });
   }
 
-  editUserInfo(formValues) {
+  editUserInfo({name, about}) {
     return this._fetch('/users/me', {
       method: 'PATCH',
       headers: {
         authorization: this._authorization,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        name: formValues.name,
-        about: formValues.about
-      })
+      body: JSON.stringify({name, about})
     });
   }
 
-  editUserAvatar(formValues) {
+  editUserAvatar({avatar}) {
     return this._fetch('/users/me/avatar', {
       method: 'PATCH',
       headers: {
@@ -50,7 +47,7 @@ class API {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        avatar: formValues.avatar
+        avatar: avatar
       })
     });
   }

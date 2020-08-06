@@ -13,7 +13,12 @@ import api from "../utils/API";
 
 
 function App() {
-  const [currentUser, setCurrentUser] = React.useState('');
+  const [currentUser, setCurrentUser] = React.useState({
+    name: '',
+    avatar: '',
+    about: '',
+    _id: '',
+  });
   const [cards, setCards] = React.useState([]);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -111,6 +116,15 @@ function App() {
     closeAllPopups();
   }
 
+  const handleUpdateUser = ({ name, about }) => {
+    return api.editUserInfo({ name, about })
+      .then(user => {
+        setCurrentUser(user);
+        closeAllPopups();
+      });
+  };
+
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header/>
@@ -133,6 +147,7 @@ function App() {
       <PopupWithEditProfile
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
+        onUpdateUser={handleUpdateUser}
       />
 
       <PopupWithAddPlace
