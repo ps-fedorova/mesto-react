@@ -61,17 +61,14 @@ class API {
     });
   }
 
-  postUserCard(formValues) {
+  postUserCard({name, link}) {
     return this._fetch('/cards', {
       method: 'POST',
       headers: {
         authorization: this._authorization,
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        name: formValues.title,
-        link: formValues.src
-      })
+      body: JSON.stringify({name, link})
     });
   }
 

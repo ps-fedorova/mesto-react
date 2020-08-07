@@ -132,6 +132,14 @@ function App() {
       });
   }
 
+  const handleAddPlaceSubmit = ({name, link}) => {
+    return api.postUserCard({name, link})
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      });
+  };
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header/>
@@ -161,6 +169,7 @@ function App() {
       <PopupWithAddPlace
         isOpen={isAddCardPopupOpen}
         onClose={closeAllPopups}
+        onAddCardSubmit={handleAddPlaceSubmit}
       />
 
       <PopupWithConfirm
