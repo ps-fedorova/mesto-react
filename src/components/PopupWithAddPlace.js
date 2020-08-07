@@ -16,8 +16,22 @@ function PopupWithAddPlace(props) {
     errorMessage: ''
   });
 
+  const [isNameValid, setIsNameValid] = React.useState(false);
+  const [isLinkValid, setIsLinkValid] = React.useState(false);
   const [isFormValid, setIsFormValid] = React.useState(false);
+
+
   const [isLoading, setIsLoading] = React.useState(false);
+
+
+  React.useEffect(() => {
+    if (isNameValid && isLinkValid) setIsFormValid(true);
+
+    return () => {
+      setIsFormValid(false);
+    };
+  }, [isNameValid, isLinkValid]);
+
 
   function handleNameChange(evt) {
     setName(evt.target.value);
@@ -28,7 +42,7 @@ function PopupWithAddPlace(props) {
         classError: 'popup__error_visible',
         errorMessage: evt.target.validationMessage
       });
-      setIsFormValid(false);
+      setIsNameValid(false);
 
     } else {
       setNameError({
@@ -36,7 +50,7 @@ function PopupWithAddPlace(props) {
         classError: '',
         errorMessage: ''
       });
-      setIsFormValid(true);
+      setIsNameValid(true);
     }
   }
 
@@ -49,7 +63,7 @@ function PopupWithAddPlace(props) {
         classError: 'popup__error_visible',
         errorMessage: evt.target.validationMessage
       });
-      setIsFormValid(false);
+      setIsLinkValid(false);
 
     } else {
       setLinkError({
@@ -57,10 +71,17 @@ function PopupWithAddPlace(props) {
         classError: '',
         errorMessage: ''
       });
-      setIsFormValid(true);
+      setIsLinkValid(true);
     }
   }
 
+  function disableForm() {
+    setName('');
+    setLink('');
+    setIsNameValid(false);
+    setIsLinkValid(false);
+  }
+  
   function handleSubmit(evt) {
     evt.preventDefault();
     setIsLoading(true);
@@ -70,16 +91,13 @@ function PopupWithAddPlace(props) {
     })
       .catch(err => console.log(err))
       .finally(() => {
-        setIsFormValid(false);
         setIsLoading(false);
       });
-    setName('');
-    setLink('');
+    disableForm();
   }
 
   function cleanErrors() {
 
-    setIsFormValid(false);
     setNameError({
       classInput: '',
       classError: '',
@@ -90,8 +108,7 @@ function PopupWithAddPlace(props) {
       classError: '',
       errorMessage: ''
     });
-    setName('');
-    setLink('');
+    disableForm();
   }
 
   function handleClose() {
