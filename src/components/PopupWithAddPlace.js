@@ -91,9 +91,9 @@ function PopupWithAddPlace(props) {
     })
       .catch(err => console.log(err))
       .finally(() => {
+        disableForm();
         setIsLoading(false);
       });
-    disableForm();
   }
 
   function cleanErrors() {
