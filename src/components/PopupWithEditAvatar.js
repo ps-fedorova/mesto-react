@@ -11,7 +11,7 @@ function PopupWithEditAvatar(props) {
     errorMessage: ''
   });
 
-  const [isFormValid, setIsFormValid] = React.useState(true);
+  const [isFormValid, setIsFormValid] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
 
   function handleChange() {
@@ -42,12 +42,12 @@ function PopupWithEditAvatar(props) {
       errorMessage: ''
     });
     setIsFormValid(false);
-    avatarRef.current.value = '';
   }
 
   function handleClose() {
     props.onClose();
     cleanErrors()
+    avatarRef.current.value = '';
   }
 
   function handleSubmit(evt) {
@@ -61,8 +61,8 @@ function PopupWithEditAvatar(props) {
       .finally(() => {
         setIsFormValid(false);
         setIsLoading(false);
-
       });
+    avatarRef.current.value = '';
   }
 
   return (
