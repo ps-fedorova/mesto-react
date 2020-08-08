@@ -136,10 +136,15 @@ function App() {
   }
 
   function handleUpdateAvatar({avatar}) {
+    setIsPopupLoading(true);
     return api.editUserAvatar({avatar})
       .then(user => {
         setCurrentUser(user);
         closeAllPopups();
+      })
+      .catch(err => console.error(err))
+      .finally(() => {
+        setIsPopupLoading(false);
       });
   }
 
@@ -172,6 +177,7 @@ function App() {
 
       <PopupWithEditAvatar
         isOpen={isEditAvatarPopupOpen}
+        isPopupLoading={isPopupLoading}
         onClose={closeAllPopups}
         onUpdateAvatar={handleUpdateAvatar}
       />

@@ -12,7 +12,17 @@ function PopupWithEditAvatar(props) {
   });
 
   const [isFormValid, setIsFormValid] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    setUrlError({
+      classInput: '',
+      classError: '',
+      errorMessage: ''
+    });
+    setIsFormValid(false);
+    avatarRef.current.value = '';
+  }, [props.isOpen]);
+
 
   function handleChange() {
     const avatar = avatarRef.current;
@@ -31,38 +41,14 @@ function PopupWithEditAvatar(props) {
         errorMessage: ''
       });
       setIsFormValid(true);
-
     }
-  }
-
-  function cleanErrors() {
-    setUrlError({
-      classInput: '',
-      classError: '',
-      errorMessage: ''
-    });
-    setIsFormValid(false);
-  }
-
-  function handleClose() {
-    props.onClose();
-    cleanErrors()
-    avatarRef.current.value = '';
   }
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    setIsLoading(true);
-
     props.onUpdateAvatar({
       avatar: avatarRef.current.value
     })
-      .catch(err => console.error(err))
-      .finally(() => {
-        setIsFormValid(false);
-        setIsLoading(false);
-      });
-    avatarRef.current.value = '';
   }
 
   return (
@@ -70,10 +56,10 @@ function PopupWithEditAvatar(props) {
       name="avatar"
       title="Обновить аватар"
       isOpen={props.isOpen}
-      onClose={handleClose}
+      onClose={props.onClose}
       onSubmit={handleSubmit}
       isDisabled={!isFormValid}
-      submitName={isLoading ? 'Сохранить...' : 'Сохранить'}
+      submitName={props.isPopupLoading ? 'Сохранить...' : 'Сохранить'}
     >
       <label className="popup__form-field">
         <input
