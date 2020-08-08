@@ -8,6 +8,7 @@ import PopupWithConfirm from "./PopupWithConfirm";
 import PopupWithEditProfile from "./PopupWithEditProfile";
 import PopupWithEditAvatar from "./PopupWithEditAvatar";
 import PopupWithAddPlace from "./PopupWithAddPlace";
+import Spinner from "./Spinner";
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 import api from "../utils/API";
 
@@ -24,6 +25,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const [dataImage, setDataImage] = React.useState({
     link: '',
@@ -34,10 +36,12 @@ function App() {
 
 
   React.useEffect(() => {
+    setIsLoading(true)
     Promise.all([api.getInitialUserInfo(), api.getInitialCards()])
       .then(([initialUserInfo, initialCards]) => {
         setCurrentUser(initialUserInfo);
         setCards(initialCards);
+        setIsLoading(false);
       })
       .catch(err => console.log(err));
   }, []);
@@ -143,7 +147,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header/>
-      <Main
+      {isLoading ? <Spinner/> :  <Main
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
         onAddCard={handleAddCardClick}
@@ -151,7 +155,7 @@ function App() {
         onCardDelete={handleDeleteCardClick}
         onCardLike={handleCardLike}
         cards={cards}
-      />
+      />}
       <Footer/>
 
       <PopupWithEditAvatar
