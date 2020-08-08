@@ -26,6 +26,24 @@ function PopupWithEditProfile(props) {
     setDescription(currentUser.about);
   }, [currentUser]);
 
+
+  React.useEffect(() => {
+    setName(currentUser.name);
+    setDescription(currentUser.about);
+    setIsFormValid(true);
+    setNameError({
+      classInput: '',
+      classError: '',
+      errorMessage: ''
+    });
+    setDescriptionError({
+      classInput: '',
+      classError: '',
+      errorMessage: ''
+    });
+  }, [props.isOpen]);
+
+
   function handleNameChange(evt) {
     setName(evt.target.value);
 
@@ -68,7 +86,6 @@ function PopupWithEditProfile(props) {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-
     props.onUpdateUser({
       name,
       about: description
@@ -76,31 +93,11 @@ function PopupWithEditProfile(props) {
     setIsFormValid(true);
   }
 
-  function cleanErrors() {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-    setIsFormValid(true);
-    setNameError({
-      classInput: '',
-      classError: '',
-      errorMessage: ''
-    });
-    setDescriptionError({
-      classInput: '',
-      classError: '',
-      errorMessage: ''
-    });
-  }
-
-  function handleClose() {
-    props.onClose();
-    cleanErrors();
-  }
-
+  
   return (
     <PopupWithForm
       isOpen={props.isOpen}
-      onClose={handleClose}
+      onClose={props.onClose}
       name="profile"
       title="Редактировать профиль"
       isDisabled={!isFormValid}
