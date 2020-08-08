@@ -144,17 +144,22 @@ function App() {
   }
 
   const handleAddPlaceSubmit = ({name, link}) => {
+    setIsPopupLoading(true);
     return api.postUserCard({name, link})
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
+      })
+      .catch(err => console.log(err))
+      .finally(() => {
+        setIsPopupLoading(false);
       });
   };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header/>
-      {isLoading ? <Spinner/> :  <Main
+      {isLoading ? <Spinner/> : <Main
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
         onAddCard={handleAddCardClick}
@@ -180,6 +185,7 @@ function App() {
 
       <PopupWithAddPlace
         isOpen={isAddCardPopupOpen}
+        isPopupLoading={isPopupLoading}
         onClose={closeAllPopups}
         onAddCardSubmit={handleAddPlaceSubmit}
       />

@@ -21,9 +21,6 @@ function PopupWithAddPlace(props) {
   const [isFormValid, setIsFormValid] = React.useState(false);
 
 
-  const [isLoading, setIsLoading] = React.useState(false);
-
-
   React.useEffect(() => {
     if (isNameValid && isLinkValid) setIsFormValid(true);
 
@@ -31,6 +28,24 @@ function PopupWithAddPlace(props) {
       setIsFormValid(false);
     };
   }, [isNameValid, isLinkValid]);
+
+
+  React.useEffect(() => {
+    setNameError({
+      classInput: '',
+      classError: '',
+      errorMessage: ''
+    });
+    setLinkError({
+      classInput: '',
+      classError: '',
+      errorMessage: ''
+    });
+    setName('');
+    setLink('');
+    setIsNameValid(false);
+    setIsLinkValid(false);
+  }, [props.isOpen]);
 
 
   function handleNameChange(evt) {
@@ -75,45 +90,12 @@ function PopupWithAddPlace(props) {
     }
   }
 
-  function disableForm() {
-    setName('');
-    setLink('');
-    setIsNameValid(false);
-    setIsLinkValid(false);
-  }
-  
   function handleSubmit(evt) {
     evt.preventDefault();
-    setIsLoading(true);
     props.onAddCardSubmit({
       name: name,
       link: link
     })
-      .catch(err => console.log(err))
-      .finally(() => {
-        disableForm();
-        setIsLoading(false);
-      });
-  }
-
-  function cleanErrors() {
-
-    setNameError({
-      classInput: '',
-      classError: '',
-      errorMessage: ''
-    });
-    setLinkError({
-      classInput: '',
-      classError: '',
-      errorMessage: ''
-    });
-    disableForm();
-  }
-
-  function handleClose() {
-    props.onClose();
-    cleanErrors();
   }
 
   return (
@@ -121,9 +103,9 @@ function PopupWithAddPlace(props) {
       name="addCard"
       title="Новое место"
       isOpen={props.isOpen}
-      onClose={handleClose}
+      onClose={props.onClose}
       onSubmit={handleSubmit}
-      submitName={isLoading ? 'Создать...' : 'Создать'}
+      submitName={props.isPopupLoading ? 'Создать...' : 'Создать'}
       isDisabled={!isFormValid}
     >
       <label className="popup__form-field">
