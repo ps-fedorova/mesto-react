@@ -79,18 +79,19 @@ function App() {
     setSelectedCard(false);
   }
 
+  function handleEsc(evt) {
+    if (evt.key === 'Escape') {
+      closeAllPopups()
+    }
+  }
+
   React.useEffect(() => {
-    const handleEsc = (evt) => {
-      if (evt.key === 'Escape') {
-        closeAllPopups()
-      }
-    };
     window.addEventListener('keydown', handleEsc);
 
     return () => {
       window.removeEventListener('keydown', handleEsc);
     };
-  }, []);
+  });
 
 
   function handleCardLike(card) {
