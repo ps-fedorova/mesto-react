@@ -113,11 +113,11 @@ function App() {
       .then(() => {
         const newCards = cards.filter((c) => c._id !== cardDelete._id);
         setCards(newCards);
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
       });
-    closeAllPopups();
   }
 
   function handleUpdateUser({name, about}) {
