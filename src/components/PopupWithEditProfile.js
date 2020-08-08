@@ -19,7 +19,6 @@ function PopupWithEditProfile(props) {
   });
 
   const [isFormValid, setIsFormValid] = React.useState(true);
-  const [isLoading, setIsLoading] = React.useState(false);
 
 
   React.useEffect(() => {
@@ -70,18 +69,11 @@ function PopupWithEditProfile(props) {
   function handleSubmit(evt) {
     evt.preventDefault();
 
-    setIsLoading(true);
-
     props.onUpdateUser({
       name,
       about: description
     })
-
-      .catch(err => console.log(err))
-      .finally(() => {
-        setIsFormValid(true);
-        setIsLoading(false);
-      });
+    setIsFormValid(true);
   }
 
   function cleanErrors() {
@@ -112,7 +104,7 @@ function PopupWithEditProfile(props) {
       name="profile"
       title="Редактировать профиль"
       isDisabled={!isFormValid}
-      submitName={isLoading ? 'Сохранить...' : 'Сохранить'}
+      submitName={props.isPopupLoading ? 'Сохранить...' : 'Сохранить'}
       onSubmit={handleSubmit}
     >
       <label className="popup__form-field">

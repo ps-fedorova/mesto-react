@@ -26,6 +26,8 @@ function App() {
   const [isAddCardPopupOpen, setIsAddCardPopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isPopupLoading, setIsPopupLoading] = React.useState(false);
+
 
   const [dataImage, setDataImage] = React.useState({
     link: '',
@@ -121,11 +123,16 @@ function App() {
   }
 
   function handleUpdateUser({name, about}) {
+    setIsPopupLoading(true);
     return api.editUserInfo({name, about})
       .then(user => {
         setCurrentUser(user);
         closeAllPopups();
-      });
+      })
+      .catch(err => console.log(err))
+      .finally(() => {
+        setIsPopupLoading(false);
+      })
   }
 
   function handleUpdateAvatar({avatar}) {
@@ -166,6 +173,7 @@ function App() {
 
       <PopupWithEditProfile
         isOpen={isEditProfilePopupOpen}
+        isPopupLoading={isPopupLoading}
         onClose={closeAllPopups}
         onUpdateUser={handleUpdateUser}
       />
