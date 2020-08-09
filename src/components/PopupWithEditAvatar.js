@@ -3,7 +3,7 @@ import React from "react";
 
 function PopupWithEditAvatar(props) {
 
-  const avatarRef = React.createRef();
+  const avatarRef = React.useRef();
 
   const [urlError, setUrlError] = React.useState({
     classInput: '',

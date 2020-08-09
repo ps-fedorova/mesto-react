@@ -24,12 +24,6 @@ function PopupWithEditProfile(props) {
   React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser]);
-
-
-  React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
     setIsFormValid(true);
     setNameError({
       classInput: '',
@@ -41,7 +35,7 @@ function PopupWithEditProfile(props) {
       classError: '',
       errorMessage: ''
     });
-  }, [props.isOpen]);
+  }, [currentUser, props.isOpen]);
 
 
   function handleNameChange(evt) {
